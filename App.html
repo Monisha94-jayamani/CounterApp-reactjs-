@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <style></style>
+  <body>
+    <div id="root">Hello JAVASCRIPT</div>
+    <script type="text/babel">
+      const Counter = () => {
+        const [number, setnumber] = React.useState([0, 1, 2, 3, 4]);
+        function increment(i) {
+          setnumber(number.map((ele, index) => (index === i ? ele + 1 : ele)));
+        }
+        function decrement(i) {
+          setnumber(number.map((ele, index) => (index === i ? ele - 1 : ele)));
+        }
+        function remove(i) {
+          setnumber(number.filter((ele, index) => index !== i));
+        }
+        function add() {
+          return setnumber(number.concat([0]));
+        }
+        // const Add = () => {
+        //   return setnumber(number.concat([0]));
+        // };
+        return (
+          <div>
+            {number.map((n, i) => {
+              return (
+                <div key={i}>
+                  <p key={i}>{n}</p>
+                  <button onClick={() => increment(i)}>increment</button>
+                  <button onClick={() => decrement(i)}>decrement</button>
+                  <button onClick={() => remove(i)}>remove</button>
+                </div>
+              );
+            })}
+            <button onClick={() => add()}>add</button>
+          </div>
+        );
+      };
+      ReactDOM.render(
+        <div>
+          <Counter />
+        </div>,
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
