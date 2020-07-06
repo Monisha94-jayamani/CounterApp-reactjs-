@@ -18,55 +18,45 @@
   <body>
     <div id="root">Hello JAVASCRIPT</div>
     <script type="text/babel">
-      const A = () => {
-        const [set, setvalue] = React.useState("");
-        const [arr, setarr] = React.useState([]);
-        const [colors, setcolors] = React.useState(null);
-
-        const [clicked, notclicked] = React.useState("false");
-        // function display(clicked) {
-        //   notclicked("true");
-        // <button onClick={() => display()}>click me</button>
-        // <div> {clicked == "true" ? <H component={set} /> : ""} </div>
-        // }
-
-        const adding = () => {
-          return setarr(arr.concat([set])), setvalue("");
-        };
-
+      const Counter = () => {
+        const [number, setnumber] = React.useState([]);
+        function increment(i) {
+          setnumber(number.map((ele, index) => (index === i ? ele + 1 : ele)));
+        }
+        function decrement(i) {
+          setnumber(number.map((ele, index) => (index === i ? ele - 1 : ele)));
+        }
+        function remove(i) {
+          setnumber(number.filter((ele, index) => index !== i));
+        }
+        function add() {
+          return setnumber(number.concat([0]));
+        }
+        // const Add = () => {
+        //   return setnumber(number.concat([0]));
+        // };
         return (
           <div>
-            <h1>hello</h1>
-            <input
-              type="text"
-              value={set}
-              onChange={(e) => setvalue(e.target.value)}
-            />
-            <br />
-            <button onClick={() => adding()}>Add</button>
-            <ul>
-              {arr.map((value, index) => {
-                return (
-                  <li
-                    key={index}
-                    style={{ background: index == colors ? "blue" : "red" }}
-                    onMouseEnter={() => setcolors(index)}
-                    //onMouseOut={() => setcolors(null)}
-                  >
-                    {value}{" "}
-                    <button
-                      onClick={() => setarr(arr.filter((v, i) => index !== i))}
-                    >
-                      x
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+            {number.map((n, i) => {
+              return (
+                <div key={i}>
+                  <p key={i}>{n}</p>
+                  <button onClick={() => increment(i)}>increment</button>
+                  <button onClick={() => decrement(i)}>decrement</button>
+                  <button onClick={() => remove(i)}>remove</button>
+                </div>
+              );
+            })}
+            <button onClick={() => add()}>add</button>
           </div>
         );
       };
-      ReactDOM.render(<A />, document.getElementById("root"));
+      ReactDOM.render(
+        <div>
+          <Counter />
+        </div>,
+        document.getElementById("root")
+      );
     </script>
   </body>
 </html>
